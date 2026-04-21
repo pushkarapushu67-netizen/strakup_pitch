@@ -1,0 +1,1344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StreakUp — Become Legendary</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Noto+Serif+SC:wght@300;400;700&family=Rajdhani:wght@300;400;500;600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#03050a;
+  --bg2:#060c14;
+  --bg3:#0a1628;
+  --gold:#c9a84c;
+  --gold2:#f0d080;
+  --gold-dim:rgba(201,168,76,0.15);
+  --cyan:#00e5ff;
+  --cyan-dim:rgba(0,229,255,0.08);
+  --red:#ff3d4a;
+  --red-dim:rgba(255,61,74,0.1);
+  --teal:#00ffc8;
+  --purple:#9b59ff;
+  --text:#e8dfc8;
+  --text2:#8a7f6a;
+  --text3:#3a3528;
+  --border:rgba(201,168,76,0.2);
+  --border2:rgba(201,168,76,0.08);
+  --font-title:'Cinzel',serif;
+  --font-cn:'Noto Serif SC',serif;
+  --font-body:'Rajdhani',sans-serif;
+  --font-mono:'Share Tech Mono',monospace;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-size:16px;line-height:1.6;overflow-x:hidden;cursor:default}
+
+/* SCROLLBAR */
+::-webkit-scrollbar{width:3px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--gold)}
+
+/* PARTICLES BG */
+#particles{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;overflow:hidden}
+.particle{position:absolute;border-radius:50%;animation:float linear infinite}
+@keyframes float{0%{transform:translateY(100vh) translateX(0) scale(0);opacity:0}10%{opacity:1}90%{opacity:0.5}100%{transform:translateY(-10vh) translateX(calc(var(--dx)*80px)) scale(1);opacity:0}}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:1rem 3rem;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border2);background:rgba(3,5,10,0.9);backdrop-filter:blur(20px)}
+.nav-logo{font-family:var(--font-title);font-size:1.1rem;color:var(--gold);text-decoration:none;letter-spacing:0.15em}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{font-family:var(--font-mono);font-size:11px;color:var(--text2);text-decoration:none;letter-spacing:0.1em;transition:color 0.2s}
+.nav-links a:hover{color:var(--gold)}
+.nav-badge{background:var(--gold-dim);border:1px solid var(--border);padding:4px 14px;font-family:var(--font-mono);font-size:10px;color:var(--gold);letter-spacing:0.1em}
+
+/* HERO */
+#hero{min-height:100vh;position:relative;display:flex;align-items:center;overflow:hidden;padding:6rem 0 4rem}
+.hero-bg-lines{position:absolute;inset:0;background-image:repeating-linear-gradient(0deg,transparent,transparent 59px,rgba(201,168,76,0.04) 60px),repeating-linear-gradient(90deg,transparent,transparent 59px,rgba(201,168,76,0.04) 60px);z-index:1}
+.hero-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:800px;height:800px;background:radial-gradient(circle,rgba(201,168,76,0.06) 0%,transparent 70%);z-index:1;pointer-events:none}
+.hero-inner{position:relative;z-index:2;max-width:1400px;margin:0 auto;padding:0 3rem;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+.hero-left{display:flex;flex-direction:column;gap:1.5rem}
+.hero-realm{font-family:var(--font-mono);font-size:11px;letter-spacing:0.2em;color:var(--gold);opacity:0;animation:fadeUp 0.8s 0.2s forwards}
+.hero-title{font-family:var(--font-title);font-size:clamp(3rem,6vw,5.5rem);font-weight:900;line-height:0.95;letter-spacing:0.05em;color:var(--text);opacity:0;animation:fadeUp 0.8s 0.4s forwards}
+.hero-title span{color:var(--gold);display:block}
+.hero-cn{font-family:var(--font-cn);font-size:1rem;color:var(--text2);letter-spacing:0.3em;opacity:0;animation:fadeUp 0.8s 0.55s forwards}
+.hero-desc{font-size:1.05rem;color:var(--text2);max-width:480px;line-height:1.7;opacity:0;animation:fadeUp 0.8s 0.7s forwards}
+.hero-ctas{display:flex;gap:1rem;flex-wrap:wrap;opacity:0;animation:fadeUp 0.8s 0.85s forwards}
+.btn-gold{background:var(--gold);color:#03050a;padding:0.8rem 2rem;font-family:var(--font-title);font-size:0.75rem;letter-spacing:0.15em;border:none;cursor:pointer;text-decoration:none;display:inline-block;transition:all 0.2s;clip-path:polygon(8px 0,100% 0,100% calc(100% - 8px),calc(100% - 8px) 100%,0 100%,0 8px)}
+.btn-gold:hover{background:var(--gold2)}
+.btn-ghost{background:transparent;color:var(--gold);padding:0.8rem 2rem;font-family:var(--font-title);font-size:0.75rem;letter-spacing:0.15em;border:1px solid var(--border);cursor:pointer;text-decoration:none;display:inline-block;transition:all 0.2s;clip-path:polygon(8px 0,100% 0,100% calc(100% - 8px),calc(100% - 8px) 100%,0 100%,0 8px)}
+.btn-ghost:hover{background:var(--gold-dim)}
+.hero-stats{display:flex;gap:2rem;opacity:0;animation:fadeUp 0.8s 1s forwards}
+.hstat{display:flex;flex-direction:column;gap:2px;padding-right:2rem;border-right:1px solid var(--border2)}
+.hstat:last-child{border-right:none}
+.hstat-val{font-family:var(--font-title);font-size:1.8rem;color:var(--gold)}
+.hstat-label{font-family:var(--font-mono);font-size:10px;color:var(--text2);letter-spacing:0.1em}
+
+/* HERO CHARACTER */
+.hero-right{display:flex;justify-content:center;align-items:center;position:relative;opacity:0;animation:fadeIn 1.2s 0.6s forwards}
+.character-scene{position:relative;width:400px;height:520px}
+.char-glow-ring{position:absolute;bottom:60px;left:50%;transform:translateX(-50%);width:280px;height:40px;background:radial-gradient(ellipse,rgba(201,168,76,0.4) 0%,transparent 70%);animation:pulse 2s ease-in-out infinite}
+.char-svg{width:100%;height:100%}
+.char-aura{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 70%,rgba(201,168,76,0.1) 0%,transparent 60%);animation:aura 3s ease-in-out infinite alternate}
+.skin-selector{position:absolute;right:-60px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:8px}
+.skin-dot{width:32px;height:32px;border-radius:50%;border:2px solid var(--border);cursor:pointer;transition:all 0.2s;display:flex;align-items:center;justify-content:center;font-size:10px;font-family:var(--font-mono)}
+.skin-dot:hover,.skin-dot.active{border-color:var(--gold);box-shadow:0 0 10px rgba(201,168,76,0.4)}
+.char-title-badge{position:absolute;top:20px;left:50%;transform:translateX(-50%);background:var(--gold-dim);border:1px solid var(--border);padding:4px 16px;font-family:var(--font-title);font-size:10px;letter-spacing:0.2em;color:var(--gold);white-space:nowrap}
+.char-level{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:11px;color:var(--gold)}
+.level-bar{width:120px;height:4px;background:rgba(201,168,76,0.2);border-radius:2px;overflow:hidden}
+.level-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold2));width:73%;animation:levelup 2s ease-in-out infinite alternate}
+
+/* SECTIONS */
+.section{padding:6rem 3rem;max-width:1400px;margin:0 auto;position:relative;z-index:2}
+.section-tag{font-family:var(--font-mono);font-size:10px;letter-spacing:0.2em;color:var(--gold);margin-bottom:0.5rem}
+.section-title{font-family:var(--font-title);font-size:clamp(1.8rem,4vw,3rem);font-weight:700;line-height:1.1;margin-bottom:0.5rem}
+.section-sub{font-size:1rem;color:var(--text2);max-width:600px;margin-bottom:3rem}
+.divider{border:none;border-top:1px solid var(--border2);margin:0}
+.gold-line{width:60px;height:2px;background:var(--gold);margin-bottom:2rem}
+
+/* AVATAR SECTION */
+.avatar-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:3rem;align-items:start}
+.avatar-panel{background:var(--bg2);border:1px solid var(--border);padding:2rem;position:relative;clip-path:polygon(0 0,calc(100% - 16px) 0,100% 16px,100% 100%,16px 100%,0 calc(100% - 16px))}
+.avatar-panel-title{font-family:var(--font-title);font-size:0.8rem;letter-spacing:0.2em;color:var(--gold);margin-bottom:1.5rem;padding-bottom:0.75rem;border-bottom:1px solid var(--border2)}
+.upload-zones{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1.5rem}
+.upload-zone{aspect-ratio:3/4;border:1px dashed var(--border);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;cursor:pointer;transition:all 0.2s;background:var(--bg3)}
+.upload-zone:hover{border-color:var(--gold);background:var(--gold-dim)}
+.upload-icon{width:32px;height:32px;border-radius:50%;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:14px}
+.upload-label{font-family:var(--font-mono);font-size:9px;color:var(--text2);letter-spacing:0.1em;text-align:center}
+.ai-score-display{background:var(--bg3);border:1px solid var(--border);padding:1.5rem;margin-top:1rem;position:relative}
+.ai-score-title{font-family:var(--font-mono);font-size:10px;color:var(--text2);letter-spacing:0.12em;margin-bottom:1rem}
+.score-ring-wrap{display:flex;justify-content:center;margin-bottom:1rem}
+.stat-bars{display:flex;flex-direction:column;gap:10px}
+.stat-bar-row{display:flex;align-items:center;gap:10px}
+.stat-bar-label{font-family:var(--font-mono);font-size:10px;color:var(--text2);width:80px;letter-spacing:0.06em}
+.stat-bar-track{flex:1;height:6px;background:rgba(255,255,255,0.05);border-radius:0;overflow:hidden}
+.stat-bar-fill{height:100%;border-radius:0;transition:width 1s ease}
+.stat-bar-val{font-family:var(--font-mono);font-size:10px;color:var(--gold);width:30px;text-align:right}
+.customize-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:1rem}
+.customize-btn{background:var(--bg3);border:1px solid var(--border2);padding:8px 6px;text-align:center;cursor:pointer;transition:all 0.2s;font-family:var(--font-mono);font-size:9px;color:var(--text2);letter-spacing:0.06em}
+.customize-btn:hover{border-color:var(--gold);color:var(--gold);background:var(--gold-dim)}
+.customize-btn.active{border-color:var(--gold);color:var(--gold);background:var(--gold-dim)}
+
+/* 3D AVATAR PREVIEW */
+.avatar-preview{position:relative;background:var(--bg2);border:1px solid var(--border);overflow:hidden;clip-path:polygon(0 0,calc(100% - 20px) 0,100% 20px,100% 100%,20px 100%,0 calc(100% - 20px))}
+.avatar-canvas{width:100%;height:500px;display:flex;align-items:center;justify-content:center;position:relative}
+.avatar-3d{width:100%;height:100%}
+.avatar-overlay-top{position:absolute;top:16px;left:16px;right:16px;display:flex;justify-content:space-between;align-items:flex-start}
+.avatar-name-plate{background:rgba(3,5,10,0.8);border:1px solid var(--border);padding:8px 14px}
+.plate-name{font-family:var(--font-title);font-size:0.9rem;color:var(--gold)}
+.plate-title{font-family:var(--font-mono);font-size:9px;color:var(--text2);letter-spacing:0.1em}
+.avatar-overlay-bottom{position:absolute;bottom:16px;left:16px;right:16px;display:flex;gap:8px}
+.stat-chip{background:rgba(3,5,10,0.85);border:1px solid var(--border2);padding:6px 10px;display:flex;flex-direction:column;gap:2px;flex:1}
+.chip-val{font-family:var(--font-title);font-size:1rem;color:var(--gold);line-height:1}
+.chip-label{font-family:var(--font-mono);font-size:8px;color:var(--text2);letter-spacing:0.08em}
+.rotate-hint{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:var(--font-mono);font-size:9px;color:var(--text2);letter-spacing:0.1em;opacity:0;transition:opacity 0.3s;pointer-events:none}
+
+/* STATS RPG */
+.stats-layout{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.5rem}
+.stat-card{background:var(--bg2);border:1px solid var(--border2);padding:1.5rem;position:relative;overflow:hidden;clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px));transition:all 0.3s}
+.stat-card:hover{border-color:var(--gold);transform:translateY(-4px)}
+.stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:0;transition:opacity 0.3s}
+.stat-card:hover::before{opacity:1}
+.stat-card-icon{font-size:1.5rem;margin-bottom:0.75rem}
+.stat-card-label{font-family:var(--font-mono);font-size:10px;color:var(--text2);letter-spacing:0.12em;margin-bottom:0.5rem}
+.stat-card-val{font-family:var(--font-title);font-size:2rem;color:var(--gold);line-height:1;margin-bottom:0.25rem}
+.stat-card-unit{font-family:var(--font-mono);font-size:9px;color:var(--text2)}
+.stat-progress{margin-top:1rem;height:3px;background:rgba(255,255,255,0.05)}
+.stat-progress-fill{height:100%;background:var(--gold);transition:width 1.5s ease}
+.stat-compare{font-family:var(--font-mono);font-size:9px;margin-top:6px}
+.compare-up{color:var(--teal)}
+.compare-down{color:var(--red)}
+
+/* TITLES / ACHIEVEMENTS */
+.titles-masonry{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.title-card{background:var(--bg2);border:1px solid var(--border2);padding:1.25rem;position:relative;overflow:hidden;clip-path:polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,8px 100%,0 calc(100% - 8px));transition:all 0.3s;cursor:default}
+.title-card:hover{transform:translateY(-3px)}
+.title-card.legendary{border-color:rgba(201,168,76,0.5);background:rgba(201,168,76,0.05)}
+.title-card.epic{border-color:rgba(155,89,255,0.4);background:rgba(155,89,255,0.05)}
+.title-card.rare{border-color:rgba(0,229,255,0.3);background:rgba(0,229,255,0.04)}
+.title-card.common{border-color:var(--border2)}
+.title-card.unique{border-color:rgba(255,61,74,0.5);background:rgba(255,61,74,0.05)}
+.title-rarity{font-family:var(--font-mono);font-size:8px;letter-spacing:0.15em;margin-bottom:0.5rem}
+.rarity-legendary{color:var(--gold)}
+.rarity-epic{color:var(--purple)}
+.rarity-rare{color:var(--cyan)}
+.rarity-common{color:var(--text2)}
+.rarity-unique{color:var(--red)}
+.title-name{font-family:var(--font-title);font-size:0.85rem;color:var(--text);line-height:1.2;margin-bottom:0.5rem}
+.title-desc{font-family:var(--font-mono);font-size:9px;color:var(--text2);line-height:1.4}
+.title-prize{margin-top:0.75rem;font-family:var(--font-title);font-size:0.75rem;color:var(--gold)}
+.title-lock{position:absolute;top:10px;right:10px;width:18px;height:18px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:10px}
+.one-world-badge{position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--red),transparent)}
+
+/* SKILLS */
+.skills-universe{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
+.skill-node{background:var(--bg2);border:1px solid var(--border2);padding:0.9rem 0.6rem;text-align:center;cursor:pointer;transition:all 0.25s;position:relative;clip-path:polygon(6px 0,100% 0,100% calc(100% - 6px),calc(100% - 6px) 100%,0 100%,0 6px)}
+.skill-node:hover,.skill-node.active{border-color:var(--gold);background:var(--gold-dim);transform:translateY(-2px)}
+.skill-icon{font-size:1.4rem;display:block;margin-bottom:6px}
+.skill-name{font-family:var(--font-mono);font-size:9px;color:var(--text2);letter-spacing:0.06em;display:block}
+.skill-node.active .skill-name{color:var(--gold)}
+.skill-level-badge{position:absolute;top:4px;right:4px;width:14px;height:14px;background:var(--gold);color:#03050a;font-size:7px;display:flex;align-items:center;justify-content:center;font-weight:700;font-family:var(--font-mono)}
+
+/* RANKINGS */
+.ranking-layout{display:grid;grid-template-columns:1fr 1fr;gap:2rem}
+.ranking-panel{background:var(--bg2);border:1px solid var(--border2);clip-path:polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,12px 100%,0 calc(100% - 12px))}
+.ranking-header{padding:1rem 1.5rem;border-bottom:1px solid var(--border2);display:flex;justify-content:space-between;align-items:center}
+.ranking-title{font-family:var(--font-title);font-size:0.8rem;letter-spacing:0.15em;color:var(--gold)}
+.ranking-scope{font-family:var(--font-mono);font-size:9px;color:var(--text2)}
+.ranking-list{padding:0.75rem}
+.rank-row{display:flex;align-items:center;gap:12px;padding:0.6rem 0.75rem;transition:background 0.2s}
+.rank-row:hover{background:var(--gold-dim)}
+.rank-num{font-family:var(--font-title);font-size:0.9rem;width:24px;text-align:center}
+.rank-num.gold{color:var(--gold)}
+.rank-num.silver{color:#b0b8c8}
+.rank-num.bronze{color:#cd7f32}
+.rank-num.you{color:var(--cyan)}
+.rank-avatar{width:28px;height:28px;border-radius:50%;background:var(--bg3);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:11px}
+.rank-info{flex:1}
+.rank-name{font-size:0.85rem;color:var(--text);font-weight:500}
+.rank-title-small{font-family:var(--font-mono);font-size:9px;color:var(--text2)}
+.rank-score{font-family:var(--font-title);font-size:1rem;color:var(--gold)}
+.rank-scope-tabs{display:flex;gap:4px;padding:0.75rem 1rem;border-bottom:1px solid var(--border2)}
+.scope-tab{font-family:var(--font-mono);font-size:9px;padding:4px 10px;cursor:pointer;letter-spacing:0.08em;color:var(--text2);border:1px solid transparent;transition:all 0.2s}
+.scope-tab.active{border-color:var(--border);color:var(--gold);background:var(--gold-dim)}
+
+/* MARKETPLACE */
+.market-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.recipe-card{background:var(--bg2);border:1px solid var(--border2);overflow:hidden;clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px));transition:all 0.3s;cursor:pointer}
+.recipe-card:hover{border-color:var(--gold);transform:translateY(-4px)}
+.recipe-img{height:140px;background:var(--bg3);display:flex;align-items:center;justify-content:center;font-size:3rem;position:relative}
+.recipe-locked{position:absolute;inset:0;background:rgba(3,5,10,0.7);display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:10px;color:var(--gold);letter-spacing:0.1em}
+.recipe-info{padding:1rem}
+.recipe-name{font-family:var(--font-title);font-size:0.85rem;color:var(--text);margin-bottom:0.5rem}
+.recipe-macros{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;margin-bottom:0.75rem}
+.macro{text-align:center;background:var(--bg3);padding:4px 2px}
+.macro-val{font-family:var(--font-mono);font-size:10px;color:var(--gold);display:block}
+.macro-label{font-family:var(--font-mono);font-size:8px;color:var(--text2);display:block}
+.recipe-footer{display:flex;justify-content:space-between;align-items:center}
+.recipe-price{font-family:var(--font-title);font-size:0.9rem;color:var(--gold)}
+.recipe-creator{font-family:var(--font-mono);font-size:9px;color:var(--text2)}
+.coin-icon{display:inline-block;width:12px;height:12px;background:var(--gold);border-radius:50%;margin-right:4px;vertical-align:middle}
+.revenue-badge{font-family:var(--font-mono);font-size:9px;color:var(--teal);background:rgba(0,255,200,0.08);border:1px solid rgba(0,255,200,0.2);padding:2px 8px;display:inline-block;margin-top:4px}
+
+/* MONETISATION */
+.mono-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.mono-card{background:var(--bg2);border:1px solid var(--border2);padding:1.5rem;clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px))}
+.mono-icon{font-size:2rem;margin-bottom:1rem;display:block}
+.mono-title{font-family:var(--font-title);font-size:1rem;color:var(--gold);margin-bottom:0.5rem}
+.mono-desc{font-size:0.875rem;color:var(--text2);line-height:1.6}
+.mono-num{font-family:var(--font-title);font-size:2rem;color:var(--text);margin-top:1rem}
+.mono-num-label{font-family:var(--font-mono);font-size:9px;color:var(--text2);letter-spacing:0.08em}
+
+/* OCCUPATION */
+.occ-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+.occ-card{background:var(--bg2);border:1px solid var(--border2);padding:1rem;text-align:center;cursor:pointer;transition:all 0.2s;clip-path:polygon(6px 0,100% 0,100% calc(100% - 6px),calc(100% - 6px) 100%,0 100%,0 6px)}
+.occ-card:hover{border-color:var(--gold);background:var(--gold-dim)}
+.occ-card.optional{border-style:dashed;opacity:0.6}
+.occ-icon{font-size:1.5rem;display:block;margin-bottom:6px}
+.occ-name{font-family:var(--font-mono);font-size:9px;color:var(--text2);letter-spacing:0.06em}
+.occ-optional-tag{font-family:var(--font-mono);font-size:8px;color:var(--text3);margin-top:4px;display:block}
+
+/* PRIZE POOL */
+.prize-layout{display:grid;grid-template-columns:1fr 1fr;gap:2rem}
+.prize-hero{background:var(--bg2);border:2px solid var(--gold);padding:2rem;text-align:center;clip-path:polygon(0 0,calc(100% - 20px) 0,100% 20px,100% 100%,20px 100%,0 calc(100% - 20px));position:relative}
+.prize-hero::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold2),transparent)}
+.prize-crown{font-size:3rem;display:block;margin-bottom:1rem}
+.prize-title-name{font-family:var(--font-title);font-size:1.4rem;color:var(--gold);margin-bottom:0.5rem}
+.prize-amount{font-family:var(--font-title);font-size:3rem;color:var(--text);line-height:1}
+.prize-currency{font-family:var(--font-mono);font-size:11px;color:var(--text2);letter-spacing:0.15em;margin-top:4px}
+.prize-note{font-family:var(--font-mono);font-size:9px;color:var(--red);letter-spacing:0.1em;margin-top:1rem;padding:6px 12px;border:1px solid rgba(255,61,74,0.3);display:inline-block}
+.prize-list{display:flex;flex-direction:column;gap:10px}
+.prize-row{background:var(--bg2);border:1px solid var(--border2);padding:1rem 1.25rem;display:flex;justify-content:space-between;align-items:center;clip-path:polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,8px 100%,0 calc(100% - 8px))}
+.prize-row-title{font-family:var(--font-title);font-size:0.85rem;color:var(--text)}
+.prize-row-amount{font-family:var(--font-title);font-size:1rem;color:var(--gold)}
+.prize-row-note{font-family:var(--font-mono);font-size:9px;color:var(--text2)}
+
+/* SKINS SHOWCASE */
+.skins-row{display:flex;gap:1rem;overflow-x:auto;padding-bottom:1rem;scrollbar-width:thin;scrollbar-color:var(--gold) var(--bg)}
+.skin-preview{min-width:160px;background:var(--bg2);border:1px solid var(--border2);padding:1rem;text-align:center;cursor:pointer;transition:all 0.25s;clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px));flex-shrink:0}
+.skin-preview:hover{border-color:var(--gold);transform:translateY(-4px)}
+.skin-preview.premium{border-color:rgba(201,168,76,0.4)}
+.skin-char{height:120px;display:flex;align-items:center;justify-content:center;font-size:3rem;margin-bottom:0.75rem}
+.skin-name{font-family:var(--font-title);font-size:0.75rem;color:var(--text);margin-bottom:4px}
+.skin-type{font-family:var(--font-mono);font-size:9px;color:var(--text2)}
+.skin-cost{font-family:var(--font-mono);font-size:10px;color:var(--gold);margin-top:6px}
+
+/* GTM BOX */
+.gtm-box{background:var(--bg2);border:1px solid var(--border);padding:2.5rem;clip-path:polygon(0 0,calc(100% - 20px) 0,100% 20px,100% 100%,20px 100%,0 calc(100% - 20px))}
+.gtm-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:1.5rem}
+.gtm-item{border-left:2px solid var(--gold);padding-left:1rem}
+.gtm-label{font-family:var(--font-mono);font-size:9px;color:var(--text2);letter-spacing:0.12em;margin-bottom:4px}
+.gtm-val{font-size:0.9rem;color:var(--text);line-height:1.5}
+
+/* NORTH STAR */
+.ns-box{display:flex;align-items:center;gap:2rem;background:var(--bg3);border:1px solid var(--border);padding:2rem;margin-top:2rem}
+.ns-metric{font-family:var(--font-title);font-size:3rem;color:var(--gold);flex-shrink:0}
+.ns-label{font-family:var(--font-mono);font-size:10px;color:var(--text2);letter-spacing:0.15em;margin-bottom:4px}
+.ns-why{font-size:0.9rem;color:var(--text2)}
+
+/* ANIMATIONS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes pulse{0%,100%{opacity:0.4;transform:translateX(-50%) scaleX(0.8)}50%{opacity:0.8;transform:translateX(-50%) scaleX(1)}}
+@keyframes aura{from{opacity:0.3}to{opacity:0.8}}
+@keyframes levelup{from{width:70%}to{width:80%}}
+@keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+@keyframes shimmer{0%{opacity:0.4}50%{opacity:1}100%{opacity:0.4}}
+
+/* SECTION DIVIDERS */
+.xian-divider{text-align:center;padding:2rem;font-family:var(--font-cn);font-size:1.2rem;color:var(--text2);letter-spacing:0.5em;position:relative;z-index:2}
+.xian-divider::before,.xian-divider::after{content:'';display:inline-block;width:80px;height:1px;background:linear-gradient(90deg,transparent,var(--gold));vertical-align:middle;margin:0 1rem}
+.xian-divider::after{background:linear-gradient(90deg,var(--gold),transparent)}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  nav{padding:1rem 1.5rem}
+  .nav-links{display:none}
+  .hero-inner{grid-template-columns:1fr;padding:0 1.5rem}
+  .hero-right{display:none}
+  .section{padding:4rem 1.5rem}
+  .stats-layout,.titles-masonry,.skills-universe,.market-grid,.mono-grid,.occ-grid,.prize-layout,.ranking-layout{grid-template-columns:1fr 1fr}
+  .avatar-grid,.gtm-grid{grid-template-columns:1fr}
+}
+
+/* SCROLL REVEAL */
+.reveal{opacity:0;transform:translateY(30px);transition:opacity 0.7s ease,transform 0.7s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+</style>
+</head>
+<body>
+
+<!-- PARTICLES -->
+<div id="particles"></div>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#hero">STREAK<span style="color:var(--text2)">UP</span></a>
+  <ul class="nav-links">
+    <li><a href="#avatar">Avatar</a></li>
+    <li><a href="#stats">Stats</a></li>
+    <li><a href="#titles">Titles</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#rankings">Rankings</a></li>
+    <li><a href="#market">Market</a></li>
+    <li><a href="#prizes">Prizes</a></li>
+  </ul>
+  <div class="nav-badge">BETA · SEASON 1</div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg-lines"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-inner">
+    <div class="hero-left">
+      <p class="hero-realm">— REALM 9 · NASCENT IMMORTAL · SEASON 01</p>
+      <h1 class="hero-title">BECOME<span>LEGENDARY</span></h1>
+      <p class="hero-cn">修炼身体 · 超越极限</p>
+      <p class="hero-desc">StreakUp transforms your real body into an RPG character. Train, compete, rank globally, earn titles no one else in the world holds — and get paid for your diet wisdom.</p>
+      <div class="hero-ctas">
+        <a href="#avatar" class="btn-gold">Build Your Avatar</a>
+        <a href="#prizes" class="btn-ghost">View Prize Pool</a>
+        <a href="https://docs.google.com/document/d/1Fj4WgFAYJniotnN3H0S1drrec-xSVvY6/edit?usp=drive_link&ouid=115375285716808763885&rtpof=true&sd=true" target="_blank" class="btn-ghost">Read PRD →</a>
+      </div>
+      <div class="hero-stats">
+        <div class="hstat">
+          <span class="hstat-val">1</span>
+          <span class="hstat-label">Strongest in World</span>
+        </div>
+        <div class="hstat">
+          <span class="hstat-val">∞</span>
+          <span class="hstat-label">Skills to master</span>
+        </div>
+        <div class="hstat">
+          <span class="hstat-val">₹0</span>
+          <span class="hstat-label">To start</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- HERO CHARACTER: Tang San inspired donghua warrior -->
+    <div class="hero-right">
+      <div class="character-scene">
+        <div class="char-title-badge">⚔ TRUE MARTIAL MASTER ⚔</div>
+        <div class="char-aura"></div>
+        <svg class="char-svg" viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="bodyGlow" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#c9a84c" stop-opacity="0.2"/>
+              <stop offset="100%" stop-color="#c9a84c" stop-opacity="0"/>
+            </radialGradient>
+            <linearGradient id="swordGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#f0d080"/>
+              <stop offset="50%" stop-color="#c9a84c"/>
+              <stop offset="100%" stop-color="#3a3528"/>
+            </linearGradient>
+            <linearGradient id="robeGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#0a1628"/>
+              <stop offset="100%" stop-color="#03050a"/>
+            </linearGradient>
+            <filter id="glow">
+              <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+              <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+          </defs>
+
+          <!-- Aura rings -->
+          <ellipse cx="200" cy="460" rx="120" ry="20" fill="url(#bodyGlow)" opacity="0.6">
+            <animate attributeName="rx" values="110;130;110" dur="2s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values="0.4;0.8;0.4" dur="2s" repeatCount="indefinite"/>
+          </ellipse>
+
+          <!-- Energy particles around character -->
+          <circle cx="120" cy="200" r="3" fill="#c9a84c" opacity="0.7">
+            <animate attributeName="cy" values="200;150;200" dur="3s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values="0.7;0;0.7" dur="3s" repeatCount="indefinite"/>
+          </circle>
+          <circle cx="280" cy="250" r="2" fill="#00e5ff" opacity="0.8">
+            <animate attributeName="cy" values="250;180;250" dur="2.5s" repeatCount="indefinite"/>
+            <animate attributeName="cx" values="280;300;280" dur="2.5s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values="0.8;0;0.8" dur="2.5s" repeatCount="indefinite"/>
+          </circle>
+          <circle cx="150" cy="300" r="2" fill="#c9a84c" opacity="0.6">
+            <animate attributeName="cy" values="300;240;300" dur="4s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values="0.6;0;0.6" dur="4s" repeatCount="indefinite"/>
+          </circle>
+          <circle cx="310" cy="180" r="3" fill="#9b59ff" opacity="0.5">
+            <animate attributeName="cy" values="180;120;180" dur="3.5s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values="0.5;0;0.5" dur="3.5s" repeatCount="indefinite"/>
+          </circle>
+
+          <!-- Robe / body -->
+          <path d="M160 220 Q140 280 130 380 Q150 390 200 392 Q250 390 270 380 Q260 280 240 220 Z" fill="url(#robeGrad)" stroke="#c9a84c" stroke-width="1" stroke-opacity="0.4"/>
+
+          <!-- Robe details -->
+          <path d="M200 240 L200 385" stroke="#c9a84c" stroke-width="0.5" stroke-opacity="0.3"/>
+          <path d="M160 260 Q200 270 240 260" stroke="#c9a84c" stroke-width="0.5" stroke-opacity="0.4" fill="none"/>
+          <path d="M155 300 Q200 315 245 300" stroke="#c9a84c" stroke-width="0.5" stroke-opacity="0.3" fill="none"/>
+
+          <!-- Belt -->
+          <path d="M155 290 Q200 298 245 290 L248 308 Q200 318 152 308 Z" fill="#c9a84c" opacity="0.3" stroke="#c9a84c" stroke-width="0.5"/>
+
+          <!-- Left arm + sleeve -->
+          <path d="M160 225 Q120 260 100 310 Q110 320 125 315 Q145 270 165 250" fill="url(#robeGrad)" stroke="#c9a84c" stroke-width="0.8" stroke-opacity="0.4"/>
+
+          <!-- Right arm holding sword -->
+          <path d="M240 225 Q270 240 290 220 Q300 200 310 180 Q295 170 280 185 Q265 220 250 235" fill="url(#robeGrad)" stroke="#c9a84c" stroke-width="0.8" stroke-opacity="0.4"/>
+
+          <!-- SWORD -->
+          <g filter="url(#glow)">
+            <!-- Handle -->
+            <rect x="284" y="88" width="12" height="40" rx="2" fill="#3a3528" stroke="#c9a84c" stroke-width="1"/>
+            <!-- Guard -->
+            <rect x="274" y="124" width="32" height="8" rx="2" fill="#c9a84c"/>
+            <!-- Blade -->
+            <path d="M288 20 L296 20 L294 128 L286 128 Z" fill="url(#swordGrad)" stroke="#f0d080" stroke-width="0.5"/>
+            <!-- Blade edge glow -->
+            <path d="M290 20 L292 20 L292 128" stroke="#f0d080" stroke-width="1" opacity="0.6">
+              <animate attributeName="opacity" values="0.4;1;0.4" dur="1.5s" repeatCount="indefinite"/>
+            </path>
+            <!-- Tip -->
+            <path d="M286 20 L292 8 L298 20 Z" fill="#f0d080"/>
+            <!-- Sword rune -->
+            <text x="291" y="80" fill="#c9a84c" font-size="8" text-anchor="middle" font-family="serif" opacity="0.6">道</text>
+          </g>
+
+          <!-- Left hand energy -->
+          <g filter="url(#glow)">
+            <circle cx="108" cy="318" r="18" fill="none" stroke="#00e5ff" stroke-width="1.5" opacity="0.7">
+              <animate attributeName="r" values="16;20;16" dur="1.5s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" values="0.5;0.9;0.5" dur="1.5s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="108" cy="318" r="8" fill="#00e5ff" opacity="0.3">
+              <animate attributeName="opacity" values="0.2;0.5;0.2" dur="1.5s" repeatCount="indefinite"/>
+            </circle>
+          </g>
+
+          <!-- Neck / chest -->
+          <rect x="182" y="185" width="36" height="40" rx="4" fill="#0d1b2e" stroke="#c9a84c" stroke-width="0.5" stroke-opacity="0.4"/>
+
+          <!-- Head -->
+          <ellipse cx="200" cy="155" rx="38" ry="44" fill="#0d1b2e" stroke="#c9a84c" stroke-width="1" stroke-opacity="0.5"/>
+
+          <!-- Face details -->
+          <!-- Eyes -->
+          <ellipse cx="186" cy="148" rx="6" ry="5" fill="#00e5ff" opacity="0.9">
+            <animate attributeName="opacity" values="0.8;1;0.8" dur="2s" repeatCount="indefinite"/>
+          </ellipse>
+          <ellipse cx="214" cy="148" rx="6" ry="5" fill="#00e5ff" opacity="0.9">
+            <animate attributeName="opacity" values="0.8;1;0.8" dur="2s" repeatCount="indefinite"/>
+          </ellipse>
+          <ellipse cx="186" cy="148" rx="3" ry="4" fill="#03050a"/>
+          <ellipse cx="214" cy="148" rx="3" ry="4" fill="#03050a"/>
+
+          <!-- Eyebrows -->
+          <path d="M179 140 Q186 136 193 140" stroke="#c9a84c" stroke-width="1.5" fill="none" stroke-opacity="0.8"/>
+          <path d="M207 140 Q214 136 221 140" stroke="#c9a84c" stroke-width="1.5" fill="none" stroke-opacity="0.8"/>
+
+          <!-- Nose subtle -->
+          <path d="M198 156 Q200 162 202 156" stroke="#3a3528" stroke-width="1" fill="none"/>
+
+          <!-- Mouth — determined expression -->
+          <path d="M191 170 Q200 174 209 170" stroke="#c9a84c" stroke-width="1" fill="none" stroke-opacity="0.6"/>
+
+          <!-- Scar -->
+          <path d="M215 138 L222 155" stroke="#c9a84c" stroke-width="0.8" stroke-opacity="0.4"/>
+
+          <!-- Hair — long flowing -->
+          <path d="M162 130 Q155 90 165 60 Q180 40 200 35 Q220 40 235 60 Q245 90 238 130" fill="#0a0a08" stroke="#c9a84c" stroke-width="0.8" stroke-opacity="0.3"/>
+          <!-- Hair flowing back -->
+          <path d="M162 130 Q140 160 135 200 Q138 210 145 205 Q155 170 168 148" fill="#0a0a08" stroke="#c9a84c" stroke-width="0.5" stroke-opacity="0.2"/>
+          <path d="M238 130 Q255 155 258 190 Q255 200 248 198 Q243 170 232 148" fill="#0a0a08" stroke="#c9a84c" stroke-width="0.5" stroke-opacity="0.2"/>
+
+          <!-- Headband -->
+          <path d="M162 128 Q200 118 238 128" stroke="#c9a84c" stroke-width="3" fill="none" stroke-opacity="0.8"/>
+          <rect x="193" y="121" width="14" height="14" rx="1" fill="#c9a84c" opacity="0.9"/>
+          <text x="200" y="131" fill="#03050a" font-size="7" text-anchor="middle" font-weight="700" font-family="serif">天</text>
+
+          <!-- Floating runes -->
+          <text x="80" y="180" fill="#c9a84c" font-size="14" font-family="serif" opacity="0.3">武</text>
+          <text x="300" y="200" fill="#c9a84c" font-size="12" font-family="serif" opacity="0.3">道</text>
+          <text x="320" y="320" fill="#00e5ff" font-size="10" font-family="serif" opacity="0.2">力</text>
+
+          <!-- Ground energy -->
+          <ellipse cx="200" cy="455" rx="90" ry="12" fill="none" stroke="#c9a84c" stroke-width="1" opacity="0.3">
+            <animate attributeName="rx" values="80;100;80" dur="2s" repeatCount="indefinite"/>
+          </ellipse>
+
+          <!-- Leg/boot silhouette -->
+          <path d="M175 385 Q170 420 165 455 Q175 462 185 455 Q187 420 192 385" fill="#0a1220" stroke="#c9a84c" stroke-width="0.5" stroke-opacity="0.3"/>
+          <path d="M225 385 Q230 420 235 455 Q225 462 215 455 Q213 420 208 385" fill="#0a1220" stroke="#c9a84c" stroke-width="0.5" stroke-opacity="0.3"/>
+        </svg>
+
+        <div class="char-glow-ring"></div>
+        <div class="char-level">
+          <span>LV 73</span>
+          <div class="level-bar"><div class="level-fill"></div></div>
+          <span>LV 74</span>
+        </div>
+
+        <!-- Skin selector dots -->
+        <div class="skin-selector">
+          <div class="skin-dot active" style="background:#0d1b2e" title="Default">天</div>
+          <div class="skin-dot" style="background:#1a0a0a" title="Crimson">红</div>
+          <div class="skin-dot" style="background:#0a1a0a" title="Jade">玉</div>
+          <div class="skin-dot" style="background:#1a1a0a" title="Gold">金</div>
+          <div class="skin-dot" style="background:#0a0a1a" title="Void">空</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="xian-divider">修身 · 齐家 · 治国 · 平天下</div>
+
+<!-- AVATAR BUILDER -->
+<section id="avatar" class="section reveal">
+  <div class="section-tag">— FEATURE 01</div>
+  <h2 class="section-title">AI Avatar Builder</h2>
+  <p class="section-sub">Upload 4 photos. Our AI maps your real body to a Donghua-style 3D character — your stats, your physique, your story. Fully customisable.</p>
+  <div class="avatar-grid">
+    <div>
+      <div class="avatar-panel">
+        <div class="avatar-panel-title">UPLOAD 4-SIDE PROFILE · AI BODY SCAN</div>
+        <div class="upload-zones">
+          <div class="upload-zone">
+            <div class="upload-icon">↑</div>
+            <span class="upload-label">FRONT VIEW</span>
+          </div>
+          <div class="upload-zone">
+            <div class="upload-icon">↓</div>
+            <span class="upload-label">BACK VIEW</span>
+          </div>
+          <div class="upload-zone">
+            <div class="upload-icon">←</div>
+            <span class="upload-label">LEFT SIDE</span>
+          </div>
+          <div class="upload-zone">
+            <div class="upload-icon">→</div>
+            <span class="upload-label">RIGHT SIDE</span>
+          </div>
+        </div>
+        <div class="ai-score-display">
+          <div class="ai-score-title">AI BODY SCORE vs STANDARD REQUIREMENTS</div>
+          <div class="score-ring-wrap">
+            <svg width="120" height="120" viewBox="0 0 120 120">
+              <circle cx="60" cy="60" r="50" fill="none" stroke="rgba(201,168,76,0.1)" stroke-width="8"/>
+              <circle cx="60" cy="60" r="50" fill="none" stroke="#c9a84c" stroke-width="8" stroke-dasharray="314" stroke-dashoffset="85" stroke-linecap="round" transform="rotate(-90 60 60)">
+                <animate attributeName="stroke-dashoffset" from="314" to="85" dur="2s" fill="freeze"/>
+              </circle>
+              <text x="60" y="55" fill="#c9a84c" font-size="22" font-weight="700" text-anchor="middle" font-family="Cinzel,serif">73</text>
+              <text x="60" y="72" fill="#8a7f6a" font-size="9" text-anchor="middle" font-family="Share Tech Mono,monospace">BODY SCORE</text>
+            </svg>
+          </div>
+          <div class="stat-bars">
+            <div class="stat-bar-row">
+              <span class="stat-bar-label">Body Fat %</span>
+              <div class="stat-bar-track"><div class="stat-bar-fill" style="width:62%;background:#00ffc8"></div></div>
+              <span class="stat-bar-val" style="color:#00ffc8">18%</span>
+            </div>
+            <div class="stat-bar-row">
+              <span class="stat-bar-label">Muscle Mass</span>
+              <div class="stat-bar-track"><div class="stat-bar-fill" style="width:55%;background:#c9a84c"></div></div>
+              <span class="stat-bar-val">55%</span>
+            </div>
+            <div class="stat-bar-row">
+              <span class="stat-bar-label">BMI Score</span>
+              <div class="stat-bar-track"><div class="stat-bar-fill" style="width:80%;background:#c9a84c"></div></div>
+              <span class="stat-bar-val">22.4</span>
+            </div>
+            <div class="stat-bar-row">
+              <span class="stat-bar-label">Posture</span>
+              <div class="stat-bar-track"><div class="stat-bar-fill" style="width:45%;background:#ff3d4a"></div></div>
+              <span class="stat-bar-val" style="color:#ff3d4a">45%</span>
+            </div>
+            <div class="stat-bar-row">
+              <span class="stat-bar-label">Symmetry</span>
+              <div class="stat-bar-track"><div class="stat-bar-fill" style="width:70%;background:#c9a84c"></div></div>
+              <span class="stat-bar-val">70%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="avatar-panel" style="margin-top:12px">
+        <div class="avatar-panel-title">CUSTOMISE YOUR CHARACTER</div>
+        <div class="customize-grid">
+          <div class="customize-btn active">HAIRSTYLE</div>
+          <div class="customize-btn">FACE SHAPE</div>
+          <div class="customize-btn">OUTFIT</div>
+          <div class="customize-btn">SKIN TONE</div>
+          <div class="customize-btn">EYE COLOR</div>
+          <div class="customize-btn">ACCESSORIES</div>
+          <div class="customize-btn">AURA COLOR</div>
+          <div class="customize-btn">WEAPON</div>
+          <div class="customize-btn">TITLE EFFECT</div>
+        </div>
+      </div>
+    </div>
+    <div class="avatar-preview">
+      <div class="avatar-canvas">
+        <svg width="100%" height="100%" viewBox="0 0 320 480" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="avatarBg" cx="50%" cy="80%" r="60%">
+              <stop offset="0%" stop-color="#c9a84c" stop-opacity="0.08"/>
+              <stop offset="100%" stop-color="#03050a" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+          <rect width="320" height="480" fill="url(#avatarBg)"/>
+          <!-- Grid lines -->
+          <line x1="160" y1="0" x2="160" y2="480" stroke="#c9a84c" stroke-width="0.3" stroke-opacity="0.2"/>
+          <line x1="0" y1="240" x2="320" y2="240" stroke="#c9a84c" stroke-width="0.3" stroke-opacity="0.2"/>
+          <!-- Scan lines -->
+          <rect x="0" y="0" width="320" height="2" fill="#c9a84c" opacity="0.1">
+            <animate attributeName="y" values="0;478;0" dur="3s" repeatCount="indefinite"/>
+          </rect>
+
+          <!-- Body silhouette with muscle definition -->
+          <!-- Torso -->
+          <path d="M125 175 Q108 190 105 250 Q107 310 120 350 Q140 360 160 362 Q180 360 200 350 Q213 310 215 250 Q212 190 195 175 Z" fill="#0d1b2e" stroke="#c9a84c" stroke-width="1" stroke-opacity="0.5"/>
+          <!-- Chest muscles hint -->
+          <path d="M130 195 Q160 205 190 195 Q192 225 160 230 Q128 225 130 195" fill="none" stroke="#c9a84c" stroke-width="0.5" stroke-opacity="0.3"/>
+          <!-- Abs -->
+          <path d="M148 240 Q160 244 172 240 M148 258 Q160 262 172 258 M148 276 Q160 280 172 276" stroke="#c9a84c" stroke-width="0.5" stroke-opacity="0.25" fill="none"/>
+          <!-- Arms -->
+          <path d="M125 178 Q95 200 88 255 Q96 265 108 258 Q118 208 135 192" fill="#0d1b2e" stroke="#c9a84c" stroke-width="0.8" stroke-opacity="0.4"/>
+          <path d="M195 178 Q225 200 232 255 Q224 265 212 258 Q202 208 185 192" fill="#0d1b2e" stroke="#c9a84c" stroke-width="0.8" stroke-opacity="0.4"/>
+          <!-- Legs -->
+          <path d="M140 358 Q132 400 128 455 Q138 462 150 455 Q154 405 158 358" fill="#0a1220" stroke="#c9a84c" stroke-width="0.6" stroke-opacity="0.3"/>
+          <path d="M180 358 Q188 400 192 455 Q182 462 170 455 Q166 405 162 358" fill="#0a1220" stroke="#c9a84c" stroke-width="0.6" stroke-opacity="0.3"/>
+          <!-- Head -->
+          <ellipse cx="160" cy="125" rx="35" ry="42" fill="#0d1b2e" stroke="#c9a84c" stroke-width="1" stroke-opacity="0.5"/>
+          <!-- Eyes glowing -->
+          <ellipse cx="147" cy="118" rx="6" ry="5" fill="#00e5ff" opacity="0.85">
+            <animate attributeName="opacity" values="0.7;1;0.7" dur="2s" repeatCount="indefinite"/>
+          </ellipse>
+          <ellipse cx="173" cy="118" rx="6" ry="5" fill="#00e5ff" opacity="0.85">
+            <animate attributeName="opacity" values="0.7;1;0.7" dur="2s" repeatCount="indefinite"/>
+          </ellipse>
+          <!-- Hair -->
+          <path d="M125 108 Q118 75 125 48 Q140 28 160 24 Q180 28 195 48 Q202 75 195 108" fill="#060a10" stroke="#c9a84c" stroke-width="0.5" stroke-opacity="0.3"/>
+          <!-- Body scan overlay -->
+          <rect x="105" y="90" width="110" height="270" fill="none" stroke="#00e5ff" stroke-width="0.5" stroke-dasharray="4,4" stroke-opacity="0.3"/>
+          <!-- Measurement lines -->
+          <line x1="75" y1="178" x2="105" y2="178" stroke="#c9a84c" stroke-width="0.5" stroke-opacity="0.5"/>
+          <line x1="215" y1="178" x2="245" y2="178" stroke="#c9a84c" stroke-width="0.5" stroke-opacity="0.5"/>
+          <text x="60" y="182" fill="#8a7f6a" font-size="7" font-family="Share Tech Mono,monospace">— SHOULDERS</text>
+          <line x1="75" y1="250" x2="105" y2="250" stroke="#c9a84c" stroke-width="0.5" stroke-opacity="0.5"/>
+          <text x="60" y="254" fill="#8a7f6a" font-size="7" font-family="Share Tech Mono,monospace">— WAIST</text>
+          <line x1="75" y1="358" x2="120" y2="358" stroke="#c9a84c" stroke-width="0.5" stroke-opacity="0.5"/>
+          <text x="60" y="362" fill="#8a7f6a" font-size="7" font-family="Share Tech Mono,monospace">— HIPS</text>
+          <!-- YOU label -->
+          <text x="160" y="16" fill="#c9a84c" font-size="9" text-anchor="middle" font-family="Cinzel,serif" letter-spacing="0.2em">YOUR AVATAR</text>
+        </svg>
+      </div>
+      <div class="avatar-overlay-top">
+        <div class="avatar-name-plate">
+          <div class="plate-name">Arjun S.</div>
+          <div class="plate-title">Iron Body · Rank #247 India</div>
+        </div>
+        <div style="font-family:var(--font-mono);font-size:10px;color:var(--teal);text-align:right">
+          <div>3D SCAN</div>
+          <div style="color:var(--text2)">ACTIVE</div>
+        </div>
+      </div>
+      <div class="avatar-overlay-bottom">
+        <div class="stat-chip"><span class="chip-val">18%</span><span class="chip-label">BODY FAT</span></div>
+        <div class="stat-chip"><span class="chip-val">178cm</span><span class="chip-label">HEIGHT</span></div>
+        <div class="stat-chip"><span class="chip-val">72kg</span><span class="chip-label">WEIGHT</span></div>
+        <div class="stat-chip"><span class="chip-val">LV73</span><span class="chip-label">OVERALL</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="xian-divider">强者之路</div>
+
+<!-- STATS RPG -->
+<section id="stats" class="section reveal">
+  <div class="section-tag">— FEATURE 02</div>
+  <h2 class="section-title">Real Stats. RPG Style.</h2>
+  <p class="section-sub">Every number from your real body becomes a character attribute. Benchpress becomes STR. IQ becomes INT. Punch force becomes your combat power.</p>
+  <div class="stats-layout">
+    <div class="stat-card">
+      <div class="stat-card-icon">💪</div>
+      <div class="stat-card-label">STRENGTH</div>
+      <div class="stat-card-val">847</div>
+      <div class="stat-card-unit">Bench: 95kg · Deadlift: 140kg</div>
+      <div class="stat-progress"><div class="stat-progress-fill" style="width:84%"></div></div>
+      <div class="stat-compare compare-up">↑ Top 12% in your city</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-card-icon">⚡</div>
+      <div class="stat-card-label">PUNCH POWER</div>
+      <div class="stat-card-val">312</div>
+      <div class="stat-card-unit">Newtons · Speed 8.4 m/s</div>
+      <div class="stat-progress"><div class="stat-progress-fill" style="width:62%"></div></div>
+      <div class="stat-compare compare-up">↑ Top 25% State</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-card-icon">🏃</div>
+      <div class="stat-card-label">AGILITY</div>
+      <div class="stat-card-val">634</div>
+      <div class="stat-card-unit">5km: 24:10 · Sprint: 11.2s</div>
+      <div class="stat-progress"><div class="stat-progress-fill" style="width:63%"></div></div>
+      <div class="stat-compare compare-down">↓ Avg for age group</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-card-icon">🧠</div>
+      <div class="stat-card-label">INTELLIGENCE</div>
+      <div class="stat-card-val">118</div>
+      <div class="stat-card-unit">IQ Score (verified test)</div>
+      <div class="stat-progress"><div class="stat-progress-fill" style="width:78%;background:#9b59ff"></div></div>
+      <div class="stat-compare compare-up" style="color:var(--purple)">↑ Top 22% World</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-card-icon">🔥</div>
+      <div class="stat-card-label">ENDURANCE</div>
+      <div class="stat-card-val">521</div>
+      <div class="stat-card-unit">VO2 Max: 42 · Streak: 34d</div>
+      <div class="stat-progress"><div class="stat-progress-fill" style="width:52%;background:#00ffc8"></div></div>
+      <div class="stat-compare compare-up" style="color:var(--teal)">↑ Growing fast</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-card-icon">🥋</div>
+      <div class="stat-card-label">MARTIAL ARTS</div>
+      <div class="stat-card-val">290</div>
+      <div class="stat-card-unit">Muay Thai · Purple Belt BJJ</div>
+      <div class="stat-progress"><div class="stat-progress-fill" style="width:29%;background:#ff3d4a"></div></div>
+      <div class="stat-compare">Rank: Iron Fist I</div>
+    </div>
+  </div>
+</section>
+
+<div class="xian-divider">荣耀与传说</div>
+
+<!-- TITLES -->
+<section id="titles" class="section reveal">
+  <div class="section-tag">— FEATURE 03</div>
+  <h2 class="section-title">Titles &amp; Honours</h2>
+  <p class="section-sub">Some titles only 1 person can hold on Earth. The rarest come with prize pools. Complete challenges, break records, become myth.</p>
+  <div class="titles-masonry">
+    <!-- Unique - only 1 in world -->
+    <div class="title-card unique" style="grid-column:span 2">
+      <div class="one-world-badge"></div>
+      <div class="title-rarity rarity-unique">✦ UNIQUE · 1 IN THE ENTIRE WORLD</div>
+      <div class="title-name">True Martial Master</div>
+      <div class="title-desc">Highest ranked martial artist globally. Combines verified black belt (2+ arts), peak strength score, and undefeated challenge record in app for 365 days.</div>
+      <div class="title-prize">Prize Pool: ₹10,00,000</div>
+      <div class="title-lock">🔒</div>
+    </div>
+    <div class="title-card unique">
+      <div class="one-world-badge"></div>
+      <div class="title-rarity rarity-unique">✦ UNIQUE · 1 IN WORLD</div>
+      <div class="title-name">World's Strongest</div>
+      <div class="title-desc">Highest verified composite strength score globally for 90+ days.</div>
+      <div class="title-prize">₹5,00,000</div>
+      <div class="title-lock">🔒</div>
+    </div>
+    <div class="title-card unique">
+      <div class="one-world-badge"></div>
+      <div class="title-rarity rarity-unique">✦ UNIQUE · 1 IN WORLD</div>
+      <div class="title-name">Grand Intellect</div>
+      <div class="title-desc">Highest verified IQ on platform + 10 skill masteries unlocked.</div>
+      <div class="title-prize">₹3,00,000</div>
+      <div class="title-lock">🔒</div>
+    </div>
+    <!-- Legendary -->
+    <div class="title-card legendary">
+      <div class="title-rarity rarity-legendary">★ LEGENDARY</div>
+      <div class="title-name">Iron Immortal</div>
+      <div class="title-desc">365-day streak. No single rest day logged.</div>
+      <div class="title-prize">₹50,000</div>
+    </div>
+    <div class="title-card legendary">
+      <div class="title-rarity rarity-legendary">★ LEGENDARY</div>
+      <div class="title-name">Martial Saint</div>
+      <div class="title-desc">Top 10 martial arts rank in country. 3 arts mastered.</div>
+      <div class="title-prize">₹25,000</div>
+    </div>
+    <div class="title-card legendary">
+      <div class="title-rarity rarity-legendary">★ LEGENDARY</div>
+      <div class="title-name">Diet Sage</div>
+      <div class="title-desc">100 recipes purchased by others. 4.8+ star average.</div>
+      <div class="title-prize">₹20,000</div>
+    </div>
+    <div class="title-card legendary">
+      <div class="title-rarity rarity-legendary">★ LEGENDARY</div>
+      <div class="title-name">Jade Body</div>
+      <div class="title-desc">Reach &lt;10% body fat AND top 5% strength simultaneously.</div>
+      <div class="title-prize">₹15,000</div>
+    </div>
+    <!-- Epic -->
+    <div class="title-card epic">
+      <div class="title-rarity rarity-epic">◆ EPIC</div>
+      <div class="title-name">City Champion</div>
+      <div class="title-desc">Rank #1 in city for 30 consecutive days.</div>
+    </div>
+    <div class="title-card epic">
+      <div class="title-rarity rarity-epic">◆ EPIC</div>
+      <div class="title-name">Challenger King</div>
+      <div class="title-desc">Win 50 friend duels in a single season.</div>
+    </div>
+    <div class="title-card epic">
+      <div class="title-rarity rarity-epic">◆ EPIC</div>
+      <div class="title-name">Iron Fist III</div>
+      <div class="title-desc">Top 1% punch power in your country.</div>
+    </div>
+    <div class="title-card epic">
+      <div class="title-rarity rarity-epic">◆ EPIC</div>
+      <div class="title-name">Recipe Master</div>
+      <div class="title-desc">50 recipes, 500+ downloads total.</div>
+    </div>
+    <!-- Rare -->
+    <div class="title-card rare">
+      <div class="title-rarity rarity-rare">◇ RARE</div>
+      <div class="title-name">30-Day Warrior</div>
+      <div class="title-desc">Complete first 30-day streak.</div>
+    </div>
+    <div class="title-card rare">
+      <div class="title-rarity rarity-rare">◇ RARE</div>
+      <div class="title-name">First Blood</div>
+      <div class="title-desc">Win your first challenge duel.</div>
+    </div>
+    <div class="title-card rare">
+      <div class="title-rarity rarity-rare">◇ RARE</div>
+      <div class="title-name">Body Reader</div>
+      <div class="title-desc">Complete AI body scan + all 6 stats entered.</div>
+    </div>
+    <div class="title-card common">
+      <div class="title-rarity rarity-common">· COMMON</div>
+      <div class="title-name">Initiate</div>
+      <div class="title-desc">Create your avatar. The journey begins.</div>
+    </div>
+  </div>
+</section>
+
+<div class="xian-divider">万法归宗</div>
+
+<!-- SKILLS -->
+<section id="skills" class="section reveal">
+  <div class="section-tag">— FEATURE 04</div>
+  <h2 class="section-title">Every Skill in the World</h2>
+  <p class="section-sub">Choose any skill humanity has mastered. Log your progress. Show the world what you're becoming. Your skill tree is part of your profile.</p>
+  <div class="skills-universe">
+    <div class="skill-node active"><span class="skill-icon">🥊</span><span class="skill-name">Boxing</span><span class="skill-level-badge">3</span></div>
+    <div class="skill-node"><span class="skill-icon">🧘</span><span class="skill-name">Yoga</span></div>
+    <div class="skill-node"><span class="skill-icon">🏊</span><span class="skill-name">Swimming</span></div>
+    <div class="skill-node active"><span class="skill-icon">🎸</span><span class="skill-name">Guitar</span><span class="skill-level-badge">2</span></div>
+    <div class="skill-node"><span class="skill-icon">🧠</span><span class="skill-name">Chess</span></div>
+    <div class="skill-node"><span class="skill-icon">🥋</span><span class="skill-name">BJJ</span></div>
+    <div class="skill-node"><span class="skill-icon">🏋️</span><span class="skill-name">Powerlifting</span></div>
+    <div class="skill-node active"><span class="skill-icon">💻</span><span class="skill-name">Coding</span><span class="skill-level-badge">5</span></div>
+    <div class="skill-node"><span class="skill-icon">🎨</span><span class="skill-name">Drawing</span></div>
+    <div class="skill-node"><span class="skill-icon">🗣️</span><span class="skill-name">Public Speaking</span></div>
+    <div class="skill-node"><span class="skill-icon">🔪</span><span class="skill-name">Knife Skills</span></div>
+    <div class="skill-node"><span class="skill-icon">🎯</span><span class="skill-name">Archery</span></div>
+    <div class="skill-node"><span class="skill-icon">🚴</span><span class="skill-name">Cycling</span></div>
+    <div class="skill-node active"><span class="skill-icon">📚</span><span class="skill-name">Reading</span><span class="skill-level-badge">4</span></div>
+    <div class="skill-node"><span class="skill-icon">🎭</span><span class="skill-name">Acting</span></div>
+    <div class="skill-node"><span class="skill-icon">🧪</span><span class="skill-name">Science</span></div>
+    <div class="skill-node"><span class="skill-icon">🍳</span><span class="skill-name">Cooking</span></div>
+    <div class="skill-node"><span class="skill-icon">🌐</span><span class="skill-name">Languages</span></div>
+    <div class="skill-node"><span class="skill-icon">🏄</span><span class="skill-name">Surfing</span></div>
+    <div class="skill-node"><span class="skill-icon">🎻</span><span class="skill-name">Violin</span></div>
+    <div class="skill-node"><span class="skill-icon">✍️</span><span class="skill-name">Writing</span></div>
+    <div class="skill-node"><span class="skill-icon">📸</span><span class="skill-name">Photography</span></div>
+    <div class="skill-node"><span class="skill-icon">🤸</span><span class="skill-name">Gymnastics</span></div>
+    <div class="skill-node" style="opacity:0.4;border-style:dashed"><span class="skill-icon">+</span><span class="skill-name">500+ more</span></div>
+  </div>
+</section>
+
+<div class="xian-divider">天下第一</div>
+
+<!-- RANKINGS -->
+<section id="rankings" class="section reveal">
+  <div class="section-tag">— FEATURE 05</div>
+  <h2 class="section-title">Global Rankings</h2>
+  <p class="section-sub">Know exactly where you stand. City. State. Country. World. Competition is the engine of growth — see your rivals and chase them down.</p>
+  <div class="ranking-layout">
+    <div class="ranking-panel">
+      <div class="ranking-header">
+        <span class="ranking-title">LEADERBOARD</span>
+        <span class="ranking-scope">Overall Score</span>
+      </div>
+      <div class="rank-scope-tabs">
+        <div class="scope-tab active">City</div>
+        <div class="scope-tab">State</div>
+        <div class="scope-tab">India</div>
+        <div class="scope-tab">World</div>
+      </div>
+      <div class="ranking-list">
+        <div class="rank-row">
+          <span class="rank-num gold">1</span>
+          <div class="rank-avatar">👑</div>
+          <div class="rank-info"><div class="rank-name">Vikram R.</div><div class="rank-title-small">Iron Immortal · Martial Saint</div></div>
+          <span class="rank-score">9,847</span>
+        </div>
+        <div class="rank-row">
+          <span class="rank-num silver">2</span>
+          <div class="rank-avatar">⚡</div>
+          <div class="rank-info"><div class="rank-name">Priya M.</div><div class="rank-title-small">Jade Body · Diet Sage</div></div>
+          <span class="rank-score">9,211</span>
+        </div>
+        <div class="rank-row">
+          <span class="rank-num bronze">3</span>
+          <div class="rank-avatar">🔥</div>
+          <div class="rank-info"><div class="rank-name">Rahul D.</div><div class="rank-title-small">City Champion</div></div>
+          <span class="rank-score">8,904</span>
+        </div>
+        <div class="rank-row" style="background:var(--cyan-dim);border:1px solid rgba(0,229,255,0.15)">
+          <span class="rank-num you">247</span>
+          <div class="rank-avatar" style="border-color:var(--cyan)">⚔</div>
+          <div class="rank-info"><div class="rank-name" style="color:var(--cyan)">You — Arjun S.</div><div class="rank-title-small">Iron Body · Challenger</div></div>
+          <span class="rank-score" style="color:var(--cyan)">4,320</span>
+        </div>
+      </div>
+    </div>
+    <div class="ranking-panel">
+      <div class="ranking-header">
+        <span class="ranking-title">CATEGORY RANKS</span>
+        <span class="ranking-scope">Your position</span>
+      </div>
+      <div style="padding:1rem">
+        <div class="rank-row" style="padding:1rem;border:1px solid var(--border2);margin-bottom:8px;border-radius:2px">
+          <span style="font-family:var(--font-mono);font-size:10px;color:var(--text2);flex:1">STRENGTH · INDIA</span>
+          <span style="font-family:var(--font-title);font-size:1rem;color:var(--gold)">#1,204</span>
+        </div>
+        <div class="rank-row" style="padding:1rem;border:1px solid var(--border2);margin-bottom:8px;border-radius:2px">
+          <span style="font-family:var(--font-mono);font-size:10px;color:var(--text2);flex:1">MARTIAL ARTS · STATE</span>
+          <span style="font-family:var(--font-title);font-size:1rem;color:var(--gold)">#89</span>
+        </div>
+        <div class="rank-row" style="padding:1rem;border:1px solid var(--border2);margin-bottom:8px;border-radius:2px">
+          <span style="font-family:var(--font-mono);font-size:10px;color:var(--text2);flex:1">INTELLIGENCE · WORLD</span>
+          <span style="font-family:var(--font-title);font-size:1rem;color:var(--purple)">#48,203</span>
+        </div>
+        <div class="rank-row" style="padding:1rem;border:1px solid var(--border2);margin-bottom:8px;border-radius:2px">
+          <span style="font-family:var(--font-mono);font-size:10px;color:var(--text2);flex:1">DIET / RECIPES · INDIA</span>
+          <span style="font-family:var(--font-title);font-size:1rem;color:var(--teal)">#312</span>
+        </div>
+        <div class="rank-row" style="padding:1rem;border:1px solid var(--gold-dim);border-radius:2px">
+          <span style="font-family:var(--font-mono);font-size:10px;color:var(--gold);flex:1">STREAK · CITY</span>
+          <span style="font-family:var(--font-title);font-size:1rem;color:var(--gold)">#12 ↑</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="xian-divider">以食养身</div>
+
+<!-- RECIPE MARKETPLACE -->
+<section id="market" class="section reveal">
+  <div class="section-tag">— FEATURE 06</div>
+  <h2 class="section-title">Recipe Marketplace</h2>
+  <p class="section-sub">Diet is the foundation of the body. Share recipes, earn StreakCoins. Creators keep 70% of every sale. Preview is free — the full recipe costs coins.</p>
+  <div class="market-grid">
+    <div class="recipe-card">
+      <div class="recipe-img">🍗
+        <div class="recipe-locked" style="display:none"></div>
+      </div>
+      <div class="recipe-info">
+        <div class="recipe-name">High-Protein Dal</div>
+        <div class="recipe-macros">
+          <div class="macro"><span class="macro-val">480</span><span class="macro-label">kcal</span></div>
+          <div class="macro"><span class="macro-val">38g</span><span class="macro-label">protein</span></div>
+          <div class="macro"><span class="macro-val">12g</span><span class="macro-label">carbs</span></div>
+          <div class="macro"><span class="macro-val">8g</span><span class="macro-label">fat</span></div>
+        </div>
+        <div class="recipe-footer">
+          <span class="recipe-price"><span class="coin-icon"></span>25 SC</span>
+          <span class="recipe-creator">by @vikram_r</span>
+        </div>
+        <div class="revenue-badge">Creator earns 70%</div>
+      </div>
+    </div>
+    <div class="recipe-card">
+      <div class="recipe-img">🥗
+        <div class="recipe-locked">🔒 UNLOCK FULL RECIPE</div>
+      </div>
+      <div class="recipe-info">
+        <div class="recipe-name">Warrior's Salad Bowl</div>
+        <div class="recipe-macros">
+          <div class="macro"><span class="macro-val">320</span><span class="macro-label">kcal</span></div>
+          <div class="macro"><span class="macro-val">28g</span><span class="macro-label">protein</span></div>
+          <div class="macro"><span class="macro-val">22g</span><span class="macro-label">carbs</span></div>
+          <div class="macro"><span class="macro-val">9g</span><span class="macro-label">fat</span></div>
+        </div>
+        <div class="recipe-footer">
+          <span class="recipe-price"><span class="coin-icon"></span>40 SC</span>
+          <span class="recipe-creator">by @priya_m</span>
+        </div>
+        <div class="revenue-badge">Creator earns 70%</div>
+      </div>
+    </div>
+    <div class="recipe-card">
+      <div class="recipe-img">🍳
+        <div class="recipe-locked">🔒 UNLOCK FULL RECIPE</div>
+      </div>
+      <div class="recipe-info">
+        <div class="recipe-name">Egg White Power Oats</div>
+        <div class="recipe-macros">
+          <div class="macro"><span class="macro-val">410</span><span class="macro-label">kcal</span></div>
+          <div class="macro"><span class="macro-val">35g</span><span class="macro-label">protein</span></div>
+          <div class="macro"><span class="macro-val">45g</span><span class="macro-label">carbs</span></div>
+          <div class="macro"><span class="macro-val">6g</span><span class="macro-label">fat</span></div>
+        </div>
+        <div class="recipe-footer">
+          <span class="recipe-price"><span class="coin-icon"></span>15 SC</span>
+          <span class="recipe-creator">by @arjun_s</span>
+        </div>
+        <div class="revenue-badge">Creator earns 70%</div>
+      </div>
+    </div>
+    <div class="recipe-card" style="border-style:dashed;opacity:0.6;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:280px">
+      <div style="font-size:2rem;margin-bottom:0.5rem">+</div>
+      <div style="font-family:var(--font-title);font-size:0.8rem;color:var(--gold);letter-spacing:0.1em">POST RECIPE</div>
+      <div style="font-family:var(--font-mono);font-size:9px;color:var(--text2);margin-top:4px">Earn StreakCoins</div>
+    </div>
+  </div>
+</section>
+
+<div class="xian-divider">变现之道</div>
+
+<!-- MONETISATION -->
+<section id="mono" class="section reveal">
+  <div class="section-tag">— BUSINESS MODEL</div>
+  <h2 class="section-title">Revenue Architecture</h2>
+  <p class="section-sub">Multiple revenue streams. Ads that never break immersion. A creator economy that rewards the best. Sustainable from Day 1.</p>
+  <div class="mono-grid">
+    <div class="mono-card">
+      <span class="mono-icon">🪙</span>
+      <div class="mono-title">StreakCoin Economy</div>
+      <div class="mono-desc">In-app currency for recipe unlocks, cosmetics, avatar skins, and challenge entry fees. Earnable by activity. Buyable for cash. 70% recipe revenue flows back to creators.</div>
+      <div class="mono-num">70<span style="font-size:1rem">%</span></div>
+      <div class="mono-num-label">CREATOR REVENUE SHARE</div>
+    </div>
+    <div class="mono-card">
+      <span class="mono-icon">⭐</span>
+      <div class="mono-title">Premium Season Pass</div>
+      <div class="mono-desc">₹199/month unlocks streak shields, unlimited challenges, exclusive skins, early title access, and advanced body analytics. No ads on premium.</div>
+      <div class="mono-num">₹199</div>
+      <div class="mono-num-label">PER MONTH · PREMIUM PASS</div>
+    </div>
+    <div class="mono-card">
+      <span class="mono-icon">📺</span>
+      <div class="mono-title">Native Ads — Non-intrusive</div>
+      <div class="mono-desc">Ads appear only as sponsored challenges, branded title rewards from nutrition/fitness partners, and optional reward videos — never mid-session interruptions.</div>
+      <div class="mono-num">0</div>
+      <div class="mono-num-label">EXPERIENCE-BREAKING ADS</div>
+    </div>
+    <div class="mono-card">
+      <span class="mono-icon">🏆</span>
+      <div class="mono-title">Prize Pool Entry Fees</div>
+      <div class="mono-desc">Rare title competitions collect entry fees from hopefuls. A % funds the prize pool. Creates viral engagement and massive competitive energy around rare titles.</div>
+    </div>
+    <div class="mono-card">
+      <span class="mono-icon">👗</span>
+      <div class="mono-title">Cosmetics &amp; Skins</div>
+      <div class="mono-desc">Limited-time costumes, seasonal avatar skins, exclusive hairstyles, weapon effects, aura colours. Purely cosmetic — never pay-to-win.</div>
+    </div>
+    <div class="mono-card">
+      <span class="mono-icon">🤝</span>
+      <div class="mono-title">Brand Challenges</div>
+      <div class="mono-desc">Brands like Protein brands, gym chains, and apparel sponsors run branded 30-day challenges. Users opt in. Winners earn real rewards. Brand gets authentic engagement.</div>
+    </div>
+  </div>
+</section>
+
+<div class="xian-divider">千姿百态</div>
+
+<!-- SKINS & CUSTOMISATION -->
+<section id="skins" class="section reveal">
+  <div class="section-tag">— FEATURE 07</div>
+  <h2 class="section-title">Skins, Costumes &amp; Hairstyles</h2>
+  <p class="section-sub">Earn or buy skins that change your avatar's entire look. Seasonal drops, challenge rewards, and premium exclusives — your character, your story.</p>
+  <div class="skins-row">
+    <div class="skin-preview">
+      <div class="skin-char">⚔️</div>
+      <div class="skin-name">Heaven's Blade</div>
+      <div class="skin-type">Default · Free</div>
+      <div class="skin-cost">Unlocked</div>
+    </div>
+    <div class="skin-preview premium">
+      <div class="skin-char">🔥</div>
+      <div class="skin-name">Crimson Phoenix</div>
+      <div class="skin-type">Premium Seasonal</div>
+      <div class="skin-cost"><span class="coin-icon"></span>800 SC</div>
+    </div>
+    <div class="skin-preview premium">
+      <div class="skin-char">🌊</div>
+      <div class="skin-name">Jade Dragon</div>
+      <div class="skin-type">Challenge Reward</div>
+      <div class="skin-cost">Win City Rank #1</div>
+    </div>
+    <div class="skin-preview premium">
+      <div class="skin-char">⚡</div>
+      <div class="skin-name">Thunder God</div>
+      <div class="skin-type">Title Exclusive</div>
+      <div class="skin-cost">Iron Immortal only</div>
+    </div>
+    <div class="skin-preview">
+      <div class="skin-char">🌙</div>
+      <div class="skin-name">Void Walker</div>
+      <div class="skin-type">Night Season</div>
+      <div class="skin-cost"><span class="coin-icon"></span>1200 SC</div>
+    </div>
+    <div class="skin-preview">
+      <div class="skin-char">🌸</div>
+      <div class="skin-name">Lotus Sage</div>
+      <div class="skin-type">Diet Mastery</div>
+      <div class="skin-cost">50 Recipes Sold</div>
+    </div>
+    <div class="skin-preview premium" style="opacity:0.5;border-style:dashed">
+      <div class="skin-char">❓</div>
+      <div class="skin-name">???</div>
+      <div class="skin-type">Season 2 · Mystery</div>
+      <div class="skin-cost">Coming soon</div>
+    </div>
+  </div>
+</section>
+
+<!-- OCCUPATION -->
+<section id="occupation" class="section reveal">
+  <div class="section-tag">— FEATURE 08</div>
+  <h2 class="section-title">Occupation &amp; Identity</h2>
+  <p class="section-sub">Optional. Add your real-world occupation to your profile. Adds context to your achievements and connects you with people in similar fields.</p>
+  <div class="occ-grid">
+    <div class="occ-card"><span class="occ-icon">💻</span><span class="occ-name">Software Engineer</span></div>
+    <div class="occ-card"><span class="occ-icon">🏥</span><span class="occ-name">Doctor / Medical</span></div>
+    <div class="occ-card"><span class="occ-icon">📐</span><span class="occ-name">Engineer</span></div>
+    <div class="occ-card"><span class="occ-icon">🎓</span><span class="occ-name">Student</span></div>
+    <div class="occ-card"><span class="occ-icon">💼</span><span class="occ-name">Entrepreneur</span></div>
+    <div class="occ-card optional"><span class="occ-icon">🎨</span><span class="occ-name">Creator</span><span class="occ-optional-tag">optional</span></div>
+    <div class="occ-card optional"><span class="occ-icon">🏋️</span><span class="occ-name">Athlete</span><span class="occ-optional-tag">optional</span></div>
+    <div class="occ-card optional"><span class="occ-icon">📊</span><span class="occ-name">Finance</span><span class="occ-optional-tag">optional</span></div>
+    <div class="occ-card optional"><span class="occ-icon">⚖️</span><span class="occ-name">Legal</span><span class="occ-optional-tag">optional</span></div>
+    <div class="occ-card optional" style="border-style:dashed"><span class="occ-icon">+</span><span class="occ-name">Custom</span><span class="occ-optional-tag">type yours</span></div>
+  </div>
+</section>
+
+<div class="xian-divider">至尊荣耀</div>
+
+<!-- PRIZE POOL -->
+<section id="prizes" class="section reveal">
+  <div class="section-tag">— FEATURE 09</div>
+  <h2 class="section-title">Prize Pool — The Rarest Titles</h2>
+  <p class="section-sub">Only the rarest achievements in the world carry prize pools. Become a myth. Some of these titles have only ever been held by one person on Earth.</p>
+  <div class="prize-layout">
+    <div class="prize-hero">
+      <span class="prize-crown">⚔️</span>
+      <div class="prize-title-name">True Martial Master</div>
+      <div style="font-family:var(--font-mono);font-size:10px;color:var(--text2);letter-spacing:0.15em;margin-bottom:1.5rem">1 TITLE · 1 PERSON · ENTIRE WORLD</div>
+      <div class="prize-amount">₹10,00,000</div>
+      <div class="prize-currency">TEN LAKH RUPEES · SEASON PRIZE</div>
+      <div class="prize-note">⚠ Only 1 human can hold this title at any time</div>
+    </div>
+    <div class="prize-list">
+      <div class="prize-row">
+        <div><div class="prize-row-title">🌍 World's Strongest</div><div class="prize-row-note">1 in world · Composite strength leader</div></div>
+        <div class="prize-row-amount">₹5,00,000</div>
+      </div>
+      <div class="prize-row">
+        <div><div class="prize-row-title">🧠 Grand Intellect</div><div class="prize-row-note">1 in world · Highest IQ + skill mastery</div></div>
+        <div class="prize-row-amount">₹3,00,000</div>
+      </div>
+      <div class="prize-row">
+        <div><div class="prize-row-title">🌸 Martial Saint</div><div class="prize-row-note">Top 10 world martial arts rank</div></div>
+        <div class="prize-row-amount">₹1,00,000</div>
+      </div>
+      <div class="prize-row">
+        <div><div class="prize-row-title">🔥 Iron Immortal</div><div class="prize-row-note">365-day streak · unbroken</div></div>
+        <div class="prize-row-amount">₹50,000</div>
+      </div>
+      <div class="prize-row">
+        <div><div class="prize-row-title">🍃 Diet Sage</div><div class="prize-row-note">100 recipes · 4.8+ stars</div></div>
+        <div class="prize-row-amount">₹20,000</div>
+      </div>
+      <div class="prize-row" style="border-color:rgba(0,229,255,0.3)">
+        <div><div class="prize-row-title" style="color:var(--cyan)">🏙 City #1 · Monthly</div><div class="prize-row-note">Rotating monthly prize · every city</div></div>
+        <div class="prize-row-amount" style="color:var(--cyan)">₹5,000</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="xian-divider">产品战略</div>
+
+<!-- GTM STRATEGY -->
+<section id="gtm" class="section reveal">
+  <div class="section-tag">— PM DELIVERABLE · LAUNCH STRATEGY</div>
+  <h2 class="section-title">Go-To-Market Strategy</h2>
+  <div class="gtm-box">
+    <div class="gtm-grid">
+      <div class="gtm-item">
+        <div class="gtm-label">TARGET SEGMENT</div>
+        <div class="gtm-val">Urban 18–32, fitness-curious, gaming-native. Has tried and quit ≥1 fitness app. Competitive nature. Social media active.</div>
+      </div>
+      <div class="gtm-item">
+        <div class="gtm-label">FIRST 1,000 USERS</div>
+        <div class="gtm-val">1. Beta via 5 gym WhatsApp communities. 2. Referral loop — invite = streak shield. 3. Fitness micro-influencer seeding (10–50K).</div>
+      </div>
+      <div class="gtm-item">
+        <div class="gtm-label">POSITIONING</div>
+        <div class="gtm-val">"The only fitness app that makes your real life feel like a cultivation novel." Duolingo + Shonen anime + LinkedIn for the body.</div>
+      </div>
+      <div class="gtm-item">
+        <div class="gtm-label">MONETISATION PRIORITY</div>
+        <div class="gtm-val">Month 1: Free + recipe marketplace. Month 3: Season Pass. Month 6: Brand challenges + rare title prize pools.</div>
+      </div>
+      <div class="gtm-item">
+        <div class="gtm-label">KEY RISKS &amp; MITIGATIONS</div>
+        <div class="gtm-val">Cold start → gym community seeding. Recipe fraud → verified creator badge. Prize pool abuse → multi-layer verification system.</div>
+      </div>
+      <div class="gtm-item">
+        <div class="gtm-label">90-DAY SUCCESS CRITERIA</div>
+        <div class="gtm-val">1,000 users. D7 retention ≥ 40%. 50+ recipes posted. 1 rare title contested. 2.3 avg active challenges per user.</div>
+      </div>
+    </div>
+    <div class="ns-box">
+      <div class="ns-metric">D7</div>
+      <div>
+        <div class="ns-label">NORTH STAR METRIC</div>
+        <div class="ns-why">Day-7 retention rate. If a user returns for 7 consecutive days, streak psychology fully activates. This single metric predicts LTV, word-of-mouth, and prize pool engagement better than any other.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer style="border-top:1px solid var(--border2);padding:2rem 3rem;display:flex;justify-content:space-between;align-items:center;position:relative;z-index:2">
+  <div>
+    <div style="font-family:var(--font-title);font-size:1rem;color:var(--gold);margin-bottom:4px">STREAKUP</div>
+    <div style="font-family:var(--font-mono);font-size:9px;color:var(--text2);letter-spacing:0.1em">Become Legendary · Season 01</div>
+  </div>
+  <div style="font-family:var(--font-cn);font-size:1rem;color:var(--text2)">修炼不止</div>
+  <div style="font-family:var(--font-mono);font-size:9px;color:var(--text2);letter-spacing:0.08em;text-align:right">
+    <div>PM Portfolio · Realm 3</div>
+    <div style="color:var(--text3);margin-top:2px">0→1 Health + Gamification</div>
+  </div>
+</footer>
+
+<script>
+// PARTICLES
+const container = document.getElementById('particles');
+for(let i=0;i<35;i++){
+  const p = document.createElement('div');
+  p.className = 'particle';
+  const size = Math.random()*3+1;
+  const colors = ['#c9a84c','#00e5ff','#9b59ff','#ffffff'];
+  const color = colors[Math.floor(Math.random()*colors.length)];
+  const delay = Math.random()*8;
+  const dur = Math.random()*12+8;
+  const left = Math.random()*100;
+  const dx = (Math.random()-0.5)*2;
+  p.style.cssText = `width:${size}px;height:${size}px;background:${color};left:${left}%;--dx:${dx};animation-duration:${dur}s;animation-delay:${delay}s;opacity:0.6`;
+  container.appendChild(p);
+}
+
+// SCROLL REVEAL
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target)}
+  })
+},{threshold:0.1});
+reveals.forEach(r=>observer.observe(r));
+
+// SKIN SELECTOR
+document.querySelectorAll('.skin-dot').forEach(dot=>{
+  dot.addEventListener('click',()=>{
+    document.querySelectorAll('.skin-dot').forEach(d=>d.classList.remove('active'));
+    dot.classList.add('active');
+  });
+});
+
+// CUSTOMIZE BTNS
+document.querySelectorAll('.customize-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.customize-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+  });
+});
+
+// SKILL NODES
+document.querySelectorAll('.skill-node').forEach(node=>{
+  node.addEventListener('click',()=>node.classList.toggle('active'));
+});
+
+// SCOPE TABS
+document.querySelectorAll('.scope-tab').forEach(tab=>{
+  tab.addEventListener('click',()=>{
+    tab.closest('.ranking-panel').querySelectorAll('.scope-tab').forEach(t=>t.classList.remove('active'));
+    tab.classList.add('active');
+  });
+});
+
+// STAT BARS ANIMATE ON SCROLL
+const statFills = document.querySelectorAll('.stat-bar-fill');
+const barObserver = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      const target = e.target.style.width;
+      e.target.style.width='0';
+      setTimeout(()=>{e.target.style.transition='width 1.2s ease';e.target.style.width=target},100);
+      barObserver.unobserve(e.target);
+    }
+  })
+},{threshold:0.5});
+statFills.forEach(f=>barObserver.observe(f));
+
+// NAV SCROLL HIGHLIGHT
+window.addEventListener('scroll',()=>{
+  const sections = document.querySelectorAll('section[id]');
+  const links = document.querySelectorAll('.nav-links a');
+  let current='';
+  sections.forEach(s=>{
+    if(window.scrollY>=s.offsetTop-200)current=s.id;
+  });
+  links.forEach(l=>{
+    l.style.color=l.getAttribute('href')==='#'+current?'var(--gold)':'';
+  });
+});
+</script>
+</body>
+</html>
